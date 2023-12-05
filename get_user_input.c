@@ -14,8 +14,10 @@ void get_user_input()
 	while (1)
 	{
 		write(STDOUT_FILENO, inputPrompt, ln);
+		fflush(stdout);
 		getline(&lineptr, &n, stdin);
+		commands_handler(lineptr);
+
 	}
-	
 	free(lineptr);
 }

@@ -27,5 +27,4 @@ void commands_handler(char *cmd)
 	execve(args[0], args, NULL);
 
 	perror(args[0]);
-	exit(EXIT_FAILURE);
-} 
+}

@@ -10,12 +10,19 @@ void get_user_input()
 	size_t ln = _strlen(inputPrompt);
 	char *lineptr;
 	size_t n = 0;
+	ssize_t buff;
 
 	while (1)
 	{
 		write(STDOUT_FILENO, inputPrompt, ln);
 		fflush(stdout);
-		getline(&lineptr, &n, stdin);
+		buff = getline(&lineptr, &n, stdin);
+
+		if (buff == -1)
+		{
+			write(STDOUT_FILENO, "Exiting", 7);
+			break;
+		}
 		commands_handler(lineptr);
 
 	}

@@ -20,7 +20,7 @@ void get_user_input()
 
 		if (buff == -1)
 		{
-			write(STDOUT_FILENO, "Exiting", 7);
+			write(STDOUT_FILENO, "Exiting\n", 8);
 			break;
 		}
 		commands_handler(lineptr);

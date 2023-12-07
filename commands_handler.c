@@ -24,7 +24,30 @@ void commands_handler(char *cmd)
 	}
 	args[idx] = NULL;
 
-	execve(args[0], args, NULL);
+	if (execve(args[0], args, NULL) == -1)
+	{
+		perror(args[0]);
+	}
+}
 
-	perror(args[0]);
+/**
+ * call_builtin - matches the built-in command
+ * @cmd: the command
+ *
+ * Return: function pointer
+ */
+int (*call_builtin(char *command))(char **args, char **front)
+{
+	int i;
+	builtIns func[] = {
+		{"exit", miShell_exit},
+		{NULL, NULL}
+	};
+	
+	for (i = 0; func[i].name; i++)
+	{
+		if (_strcmp(func[i].name, command) == 0)
+			break;
+	}
+	return (func[i].f);
 }

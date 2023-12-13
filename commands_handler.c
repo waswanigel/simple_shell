@@ -11,7 +11,7 @@ char **tokenizer(char *cmd)
 {
 	char **commands;
 	char *token;
-	int num;
+	int num = 0;
 
 	if (cmd[0] == ' ' && cmd[_strlen(cmd)] == ' ')
 		exit (0);
@@ -104,16 +104,16 @@ int (*call_builtin(char *command))(char **args, char **front)
  */
 void cmd_executor(char **tokens)
 {
-	pid_t child_pid;
+pid_t child_pid;
 	
 	child_pid = fork();
 
-	if (child_pid == 0)
-	{
-		execvp(tokens[0], tokens);
-		perror("Error");
-		exit(1);
-	}
-	else
-		waitpid(child_pid, NULL, 0);
+		if (child_pid == 0)
+				{
+							execvp(tokens[0], tokens);
+									perror("Error");
+											exit(1);
+												}
+			else
+						waitpid(child_pid, NULL, 0);
 }

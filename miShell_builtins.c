@@ -31,11 +31,5 @@ int miShell_exit(char **args, char **arg_start)
 		free(arg_start);
 		return (-1);
 	}
-
-
-	if (args)
-		free(args);
-	if (arg_start)
-		free(arg_start);
 	exit(exit_status);
 }

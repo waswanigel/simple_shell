@@ -90,14 +90,6 @@ int (*call_builtin(char *command))(char **args, char **front)
 		if (_strcmp(func[i].name, command) == 0)
 			break;
 	}
-	/**
-	if (!func[i].f)
-	{
-		char err_msg[] = "command not found\n";
-
-		write(STDERR_FILENO, err_msg, _strlen(err_msg));
-	}
-	*/
 	return (func[i].f);
 }
 

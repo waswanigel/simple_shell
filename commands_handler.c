@@ -1,10 +1,8 @@
 #include "miShell.h"
 
-int (*builtin_func)(char **args, char **front);
-
 /**
  * tokenizer - splits commands from std input
- * cmd: the command from standard input
+ * @cmd: the command from standard input
  * Return: tokenized commands
  */
 char **tokenizer(char *cmd)
@@ -14,11 +12,11 @@ char **tokenizer(char *cmd)
 	int num = 0;
 
 	if (cmd[0] == ' ' && cmd[_strlen(cmd)] == ' ')
-		exit (0);
+		exit(0);
 	if (cmd == NULL)
 		return (NULL);
 	commands = malloc(sizeof(char *) * 1024);
-	
+
 	if (!commands)
 	{
 		free(commands);
@@ -39,7 +37,7 @@ char **tokenizer(char *cmd)
 }
 
 /**
- * commands_handler: processes input commands
+ * commands_handler - processes input commands
  * @cmd: the command
  */
 
@@ -51,6 +49,7 @@ void commands_handler(char *cmd)
 	if (!commands || !commands[0])
 	{
 		char error_msg[] = "Invalid command\n";
+
 		write(STDERR_FILENO, error_msg, _strlen(error_msg));
 		return;
 	}
@@ -73,28 +72,32 @@ void commands_handler(char *cmd)
 
 /**
  * call_builtin - matches the built-in command
- * @cmd: the command
+ * @command: the command
  *
  * Return: function pointer
  */
 int (*call_builtin(char *command))(char **args, char **front)
 {
 	int i;
+
 	builtIns func[] = {
 		{"exit", miShell_exit},
 		{NULL, NULL}
 	};
-	
+
 	for (i = 0; func[i].name; i++)
 	{
 		if (_strcmp(func[i].name, command) == 0)
 			break;
 	}
+	/**
 	if (!func[i].f)
 	{
 		char err_msg[] = "command not found\n";
+
 		write(STDERR_FILENO, err_msg, _strlen(err_msg));
 	}
+	*/
 	return (func[i].f);
 }
 
@@ -104,16 +107,17 @@ int (*call_builtin(char *command))(char **args, char **front)
  */
 void cmd_executor(char **tokens)
 {
-pid_t child_pid;
-	
+	pid_t child_pid;
+
 	child_pid = fork();
 
-		if (child_pid == 0)
-				{
-							execvp(tokens[0], tokens);
-									perror("Error");
-											exit(1);
-												}
-			else
-						waitpid(child_pid, NULL, 0);
+	if (child_pid == 0)
+	{
+		execve(tokens[0], tokens, NULL);
+		perror("./hsh");
+		exit(1);
+	}
+
+	else
+		waitpid(child_pid, NULL, 0);
 }

@@ -2,7 +2,9 @@
 
 /**
  * miShell_exit - implements the exit builtin
- * @args - array of arguments
+ * @args: array of arguments
+ * @arg_start: ptr to start of array containing arguments
+ * Return: -1 if exit succeeds
  */
 
 int miShell_exit(char **args, char **arg_start)
@@ -15,7 +17,8 @@ int miShell_exit(char **args, char **arg_start)
 
 		if (exit_status == 0 && args[0][0] != '0')
 		{
-			write(STDERR_FILENO, "Invalid exit status: ", _strlen("Invalid exit status: "));
+			write(STDERR_FILENO, "Invalid exit status: ",
+					_strlen("Invalid exit status: "));
 			write(STDERR_FILENO, args[0], _strlen(args[0]));
 			write(STDERR_FILENO, "\n", 1);
 

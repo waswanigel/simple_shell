@@ -23,13 +23,13 @@ char **tokenizer(char *cmd)
 		perror("hsh");
 		return (NULL);
 	}
-	token = strtok(cmd, " ");
+	token = custom_strtok(cmd, " ");
 
 	while (token)
 	{
 		commands[num] = _strdup(token);
 		num++;
-		token = strtok(NULL, " ");
+		token = custom_strtok(NULL, " ");
 	}
 	commands[num] = NULL;
 
@@ -106,7 +106,7 @@ void cmd_executor(char **tokens)
 	if (child_pid == 0)
 	{
 		execve(tokens[0], tokens, NULL);
-		perror("./hsh");
+		perror(tokens[0]);
 		exit(1);
 	}
 

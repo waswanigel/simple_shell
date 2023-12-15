@@ -25,6 +25,8 @@ int (*builtin_func)(char **args, char **front);
 int _strcmp(char *s1, char *s2);
 void handle_non_interactive_mode(void);
 void interactive_mode(void);
+unsigned int isDelimiter(char c, const char *delimiters);
+char *custom_strtok(char *str, const char *delim);
 
 /**
  * struct builtins_shell - a struct type with builtin miShell commands
